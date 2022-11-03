@@ -1,0 +1,101 @@
+substitutions:
+  name: "Media Centre" # Location and Entity Names
+  max_temp: "70" # Threshold for MAX Fan Speed
+
+esphome:
+  name: "fan-media-centre"
+  platform: ESP8266
+  board: d1_mini
+  esp8266_restore_from_flash: true
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+logger:
+  logs:
+    dallas.sensor: none
+    number: none
+    sensor: none
+
+api:
+ota:
+
+dallas:
+  pin: D7
+  update_interval: 5s
+
+sensor:
+  - platform: dallas
+    address: 0x823c01f095737e28
+    name: $name Temperature
+    id: temp_sensor
+    accuracy_decimals: 0
+
+    ## Adjust fan speed(1-100%) based. Else, turn it off
+    on_value:
+      - lambda: !lambda |
+          auto pct = map(x, id(set_temp).state, $max_temp, 1, 100);
+          if (pct>1) {
+            auto call = id(the_fan).turn_on(); call.set_speed(pct); call.perform();
+          } else {             
+            auto call = id(the_fan).turn_off(); call.perform();
+          }
+
+      ## ALARM If over 'Max Temp' for 10 Seconds turn on 'binary_sensor: alarm'. Else, turn it off
+      - if:
+          condition:
+            for:
+              time: 10s
+              condition:
+                lambda: |-
+                  return id(temp_sensor).state > $max_temp;
+          then:
+            - lambda: !lambda |-
+                id(alarm).publish_state(true);
+          else:
+            - lambda: !lambda |-
+                id(alarm).publish_state(false);
+
+binary_sensor:
+  - platform: template
+    id: alarm
+    name: $name Alarm
+    icon: mdi:fire
+
+## Slider to set Min Temperature to start fan
+number:
+  - platform: template
+    id: set_temp
+    name: $name Set Temp
+    optimistic: True
+    min_value: 25
+    max_value: 60
+    initial_value: 35
+    step: 1
+    restore_value: true # Store setting between reboots
+
+fan:
+  - platform: speed
+    id: the_fan
+    output: fan_pwm
+    name: $name Fan
+    speed_count: 100
+    on_turn_on:
+      - switch.turn_on: fan_power
+    on_turn_off:
+      - switch.turn_off: fan_power
+
+## Fan power (MOSFET)
+switch:
+  - platform: gpio
+    pin: D2
+    id: fan_power
+    name: $name Power
+
+output:
+  - platform: esp8266_pwm
+    pin:
+      number: D3
+    id: fan_pwm
+    frequency: 22.5kHz
