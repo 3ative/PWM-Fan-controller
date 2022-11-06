@@ -1,5 +1,5 @@
 substitutions:
-  name: "Media Centre" # Location and Entity Names
+  name: "Media Centre" # Location and Entity Names (Capitals and Spaces Allowed)
   max_temp: "70" # Threshold for MAX Fan Speed
 
 esphome:
@@ -17,9 +17,23 @@ logger:
     dallas.sensor: none
     number: none
     sensor: none
+    light: none
+    fan: none
 
 api:
 ota:
+
+# Slider to set Min Temperature to start fan
+number:
+  - platform: template
+    id: set_temp
+    name: $name Set Temp
+    optimistic: True
+    min_value: 15
+    max_value: 60
+    initial_value: 35
+    step: 1
+    restore_value: true # Store setting between reboots
 
 dallas:
   pin: D7
@@ -27,12 +41,12 @@ dallas:
 
 sensor:
   - platform: dallas
-    address: 0x823c01f095737e28
+    address: 0x823c01f095737e28 # Put YOUR Address here
     name: $name Temperature
     id: temp_sensor
     accuracy_decimals: 0
 
-    ## Adjust fan speed(1-100%) based. Else, turn it off
+    # Adjust fan speed(1-100%). Else, turn it off
     on_value:
       - lambda: !lambda |
           auto pct = map(x, id(set_temp).state, $max_temp, 1, 100);
@@ -42,7 +56,7 @@ sensor:
             auto call = id(the_fan).turn_off(); call.perform();
           }
 
-      ## ALARM If over 'Max Temp' for 10 Seconds turn on 'binary_sensor: alarm'. Else, turn it off
+      # ALARM If over 'Max Temp' for 10 Seconds: Turn on 'binary_sensor: alarm' & Flash the On-Board LED. Else, turn them off
       - if:
           condition:
             for:
@@ -51,29 +65,16 @@ sensor:
                 lambda: |-
                   return id(temp_sensor).state > $max_temp;
           then:
+            - light.turn_on:
+                id: d4_light
+                effect: flashfast
+
             - lambda: !lambda |-
                 id(alarm).publish_state(true);
           else:
+            - light.turn_off: d4_light
             - lambda: !lambda |-
                 id(alarm).publish_state(false);
-
-binary_sensor:
-  - platform: template
-    id: alarm
-    name: $name Alarm
-    icon: mdi:fire
-
-## Slider to set Min Temperature to start fan
-number:
-  - platform: template
-    id: set_temp
-    name: $name Set Temp
-    optimistic: True
-    min_value: 25
-    max_value: 60
-    initial_value: 35
-    step: 1
-    restore_value: true # Store setting between reboots
 
 fan:
   - platform: speed
@@ -86,16 +87,38 @@ fan:
     on_turn_off:
       - switch.turn_off: fan_power
 
-## Fan power (MOSFET)
+binary_sensor:
+  - platform: template
+    id: alarm
+    name: $name Alarm
+    icon: mdi:fire
+
+# Fan power (MOSFET)
 switch:
   - platform: gpio
     pin: D2
     id: fan_power
-    name: $name Power
+
+# On Board LED
+light:
+  - platform: monochromatic
+    id: d4_light
+    output: d4_light_pwm
+    effects:
+      - pulse:
+          name: flashfast
+          transition_length: 0.0s
+          update_interval: 0.04s    
 
 output:
   - platform: esp8266_pwm
+    id: fan_pwm
     pin:
       number: D3
-    id: fan_pwm
-    frequency: 22.5kHz
+    frequency: 22.5kHz #Pulse the fan fast to prevent noise
+
+  - platform: esp8266_pwm
+    id: d4_light_pwm
+    pin:
+      number: D4
+      inverted: true
