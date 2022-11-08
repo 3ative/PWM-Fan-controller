@@ -76,6 +76,12 @@ sensor:
             - lambda: !lambda |-
                 id(alarm).publish_state(false);
 
+switch:
+  # Fan power (MOSFET)
+  - platform: gpio
+    pin: D2
+    id: fan_power
+
 fan:
   - platform: speed
     id: the_fan
@@ -86,12 +92,6 @@ fan:
       - switch.turn_on: fan_power
     on_turn_off:
       - switch.turn_off: fan_power
-
-switch:
-  # Fan power (MOSFET)
-  - platform: gpio
-    pin: D2
-    id: fan_power
 
 binary_sensor:
   - platform: template
