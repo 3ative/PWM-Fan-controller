@@ -1,4 +1,4 @@
-# ESPHome Automatic 4-Wire PWM (12v) Fan controller with Alarm.
+# ESPHome Automatic 4-Wire PWM (5-24v) Fan controller with Alarm.
 
 ## Watch the tutorials here:
 [Part 1 - Building the Circuit Board](https://youtu.be/n58zMjsn5P4)
