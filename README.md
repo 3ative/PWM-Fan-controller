@@ -5,6 +5,8 @@
 
 [Part 2 - ESPHome Flash and Breakdown](https://youtu.be/Lcr6oTuq4Yw)
 
+[Part 3 - Custom Dashboard Button](#)
+
 ___
 #### 💖 Found this useful, want to say '*Thanks*' and support my efforts. *CHEERS*🍺
 | Buy me a Coffee | PATREON |
