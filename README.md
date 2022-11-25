@@ -10,7 +10,7 @@ Using a DALLAS temperature sensor and a threshold Slider, the speed of the Fan i
 
 [Part 2 - ESPHome Flash and Breakdown](https://youtu.be/72yCK_FiVSg)
 
-[Part 3 - Custom Dashboard Button](#)
+[Part 3 - Custom Dashboard Button](#) - Working on it
 
 ___
 #### 💖 Found this useful, want to say '*Thanks*' and support my efforts. *CHEERS*🍺
