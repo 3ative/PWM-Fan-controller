@@ -3,7 +3,8 @@
 Using a DALLAS temperature sensor and a threshold Slider, the speed of the Fan is automatically controlled from 0 to 100%. Making it ideal for ventilating / cooling your projects. I.E. Holiday Lights controller enclosure, Media Cabinet units and many more.
 
 
-- With an on-board regulator to power the D1 Mini, this project is ready to control 5,12 or 24 Volt fans without modification.
+- With an on-board regulator to power the D1 Mini, this project is ready to control 5,12 or 24 Volt fans without modification
+- (just make sure you power this project with the same voltage your fan uses).
 
 ## Watch the tutorials here:
 [Part 1 - Building the Circuit Board](https://youtu.be/UQ6Gylbk8AI)
