@@ -53,7 +53,7 @@ sensor:
           if (pct>1) {
             auto call = id(the_fan).turn_on(); call.set_speed(pct); call.perform();
           } else {
-            auto call = id(the_fan).turn_off(); call.perform();
+            auto call = id(the_fan).turn_off(); call.set_speed(1); call.perform();
           }
 
       # ALARM If over 'Max Temp' for 10 Seconds: Turn on 'binary_sensor: alarm' & Flash the On-Board LED. Else, turn them off
