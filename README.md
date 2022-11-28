@@ -13,8 +13,17 @@ Using a DALLAS temperature sensor and a threshold Slider, the speed of the Fan i
 
 [Part 3 - Custom Dashboard Button](#) - Working on it
 
-___
+_____
 #### 💖 Found this useful, want to say '*Thanks*' and support my efforts. *CHEERS*🍺
 | Buy me a Coffee | PATREON |
 |-----------------|---------|
 | https://www.buymeacoffee.com/3ative | https://www.patreon.com/3ative |
+
+_____
+Problem: Temperature sensor cycles between On/NAN
+
+Solution: Add a 4.7K Resistor
+
+![image](https://user-images.githubusercontent.com/51385971/204195864-4291b25b-77ce-4076-a700-95b842102ca0.png)
+
+____
