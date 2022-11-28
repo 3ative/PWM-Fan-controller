@@ -8,6 +8,9 @@ esphome:
   board: d1_mini
   esp8266_restore_from_flash: true
 
+preferences:
+  flash_write_interval: 180s
+
 wifi:
   ssid: !secret wifi_ssid
   password: !secret wifi_password
