@@ -36,7 +36,7 @@ number:
     max_value: 60
     initial_value: 35
     step: 1
-    restore_value: true # Store setting between reboots
+    restore_value: true # Restore setting between reboots
 
 dallas:
   pin: D7
@@ -49,7 +49,7 @@ sensor:
     id: temp_sensor
     accuracy_decimals: 0
 
-    # Adjust fan speed(1-100%). Else, turn it off
+    # Adjust fan speed(1-100%). Else, turn it off and set the speed to 1
     on_value:
       - lambda: !lambda |
           auto pct = map(x, id(set_temp).state, $max_temp, 1, 100);
@@ -71,7 +71,6 @@ sensor:
             - light.turn_on:
                 id: d4_light
                 effect: flashfast
-
             - lambda: !lambda |-
                 id(alarm).publish_state(true);
           else:
