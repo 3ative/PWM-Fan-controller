@@ -9,7 +9,7 @@ esphome:
   esp8266_restore_from_flash: true
 
 preferences:
-  flash_write_interval: 180s
+  flash_write_interval: 10000s
 
 wifi:
   ssid: !secret wifi_ssid
