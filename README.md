@@ -27,3 +27,6 @@ Solution: Add a 4.7K Resistor
 ![image](https://user-images.githubusercontent.com/51385971/204195864-4291b25b-77ce-4076-a700-95b842102ca0.png)
 
 ____
+
+Problem 2: Some Fans not turning off.
+Andrew has a solution: [See Issue #2 Here](https://github.com/3ative/PWM-Fan-controller/issues/2)
