@@ -1,6 +1,7 @@
 substitutions:
   name: "Media Centre" # Location and Entity Names (Capitals and Spaces Allowed)
-  max_temp: "70" # Threshold for MAX Fan Speed and Alarm
+  max_temp: "60" # temperture threshold for MAX Fan Speed and Alarm
+  dallas_addr: "0xe53c01f095410528" # Put YOUR Dallas Sensor Address here
 
 esphome:
   name: "fan-media-centre"
@@ -32,19 +33,19 @@ number:
     id: set_temp
     name: $name Set Temp
     optimistic: True
-    min_value: 15
-    max_value: 60
-    initial_value: 35
+    min_value: 10
+    max_value: 50
+    initial_value: 25
     step: 1
-    restore_value: true # Restore setting between reboots
+    restore_value: true # Store setting between reboots
 
 dallas:
   pin: D7
-  update_interval: 5s
+  update_interval: 2s
 
 sensor:
   - platform: dallas
-    address: 0xfb3c01f095541028 # Put YOUR Address here
+    address: $dallas_addr
     name: $name Temperature
     id: temp_sensor
     accuracy_decimals: 0
@@ -52,7 +53,7 @@ sensor:
     # Adjust fan speed(1-100%). Else, turn it off and set the speed to 1
     on_value:
       - lambda: !lambda |
-          auto pct = map(x, id(set_temp).state, $max_temp, 1, 100);
+          auto pct = map(x, id(set_temp).state, id(set_temp).state+20, 1, 100);
           if (pct>1) {
             auto call = id(the_fan).turn_on(); call.set_speed(pct); call.perform();
           } else {
@@ -63,20 +64,21 @@ sensor:
       - if:
           condition:
             for:
-              time: 10s
+              time: 5s
               condition:
                 lambda: |-
-                  return id(temp_sensor).state > $max_temp;
+                  return id(temp_sensor).state > id(set_temp).state+20;
           then:
             - light.turn_on:
                 id: d4_light
                 effect: flashfast
+
             - lambda: !lambda |-
-                id(alarm).publish_state(true);
+                id(alarm1).publish_state(true);
           else:
             - light.turn_off: d4_light
             - lambda: !lambda |-
-                id(alarm).publish_state(false);
+                id(alarm1).publish_state(false);
 
 switch:
   # Fan power (MOSFET)
@@ -97,7 +99,7 @@ fan:
 
 binary_sensor:
   - platform: template
-    id: alarm
+    id: alarm1
     name: $name Alarm
     icon: mdi:fire
 
@@ -117,7 +119,7 @@ output:
     id: fan_pwm
     pin:
       number: D3
-    min_power: 0.05 #Slowest Speed for Noctua Fans is 5% - Set to 0 for 'Other' Fans
+    min_power: 0.05 #Slowest Speed for Noctua Fans is 10% - Set to 0 for 'Other' Fans
     frequency: 22.5kHz #Pulse the fan fast to prevent noise
 
   - platform: esp8266_pwm
