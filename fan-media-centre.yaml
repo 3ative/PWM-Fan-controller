@@ -122,7 +122,7 @@ output:
     pin:
       number: D3
     min_power: 0.05 #Slowest Speed for Noctua Fans is 10% - Set to 0 for 'Other' Fans
-    frequency: 22.0kHz #Pulse the fan fast to prevent noise
+    frequency: 20.0kHz #Pulse the fan fast to prevent noise
 
   - platform: esp8266_pwm
     id: d4_light_pwm
