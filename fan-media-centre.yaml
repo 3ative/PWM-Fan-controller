@@ -9,12 +9,16 @@ esphome:
   board: d1_mini
   esp8266_restore_from_flash: true
 
-preferences:
-  flash_write_interval: 10000s
-
 wifi:
   ssid: !secret wifi_ssid
   password: !secret wifi_password
+
+api:
+ota:
+  platform: esphome
+
+preferences:
+  flash_write_interval: 10000s
 
 logger:
   logs:
@@ -23,10 +27,6 @@ logger:
     sensor: none
     light: none
     fan: none
-
-api:
-ota:
-  platform: esphome
 
 number:
   # Slider to set Min Temperature to start fan
@@ -46,7 +46,7 @@ one_wire:
 
 sensor:
   - platform: dallas_temp
-    address: $dallas_addr
+    address:  $dallas_addr
     name: $name Temperature
     id: temp_sensor
     update_interval: 2s
@@ -122,7 +122,7 @@ output:
     pin:
       number: D3
     min_power: 0.05 #Slowest Speed for Noctua Fans is 10% - Set to 0 for 'Other' Fans
-    frequency: 22.5kHz #Pulse the fan fast to prevent noise
+    frequency: 22.0kHz #Pulse the fan fast to prevent noise
 
   - platform: esp8266_pwm
     id: d4_light_pwm
