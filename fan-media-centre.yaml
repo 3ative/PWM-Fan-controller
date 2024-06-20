@@ -26,6 +26,7 @@ logger:
 
 api:
 ota:
+  platform: esphome
 
 number:
   # Slider to set Min Temperature to start fan
@@ -39,15 +40,16 @@ number:
     step: 1
     restore_value: true # Store setting between reboots
 
-dallas:
-  pin: D7
-  update_interval: 2s
+one_wire:
+  - platform: gpio
+    pin: D7
 
 sensor:
-  - platform: dallas
+  - platform: dallas_temp
     address: $dallas_addr
     name: $name Temperature
     id: temp_sensor
+    update_interval: 2s
     accuracy_decimals: 0
 
     # Adjust fan speed(1-100%). Else, turn it off and set the speed to 1
