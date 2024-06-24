@@ -6,6 +6,20 @@ Using a DALLAS temperature sensor and a threshold Slider, the speed of the Fan i
 - With an on-board regulator to power the D1 Mini, this project is ready to control 5,12 or 24 Volt fans without modification
 - (just make sure you power this project with the same voltage your fan uses).
 
+## ESPHome 2024.6.x Update notice:
+If you are having problems with board resetting or DALLAS temperature after adding the ``one_wire:`` Breaking Change. [ssieb](https://github.com/ssieb) has got a fix for you.
+Please add this External Component to your YAML:
+```yaml
+external_components:
+  - source:
+      type: git
+      url: https://github.com/ssieb/esphome
+      ref: onewire
+    components: [ gpio ]
+    refresh: 1min
+```
+ - I have also added it to the Yaml Files
+
 ## Watch the tutorials here:
 [Part 1 - Building the Circuit Board](https://youtu.be/UQ6Gylbk8AI)
 
