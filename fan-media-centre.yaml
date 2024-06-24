@@ -28,6 +28,16 @@ logger:
     light: none
     fan: none
 
+### Add this to fix the Breaking Change one_wire: change ###
+external_components:
+  - source:
+      type: git
+      url: https://github.com/ssieb/esphome
+      ref: onewire
+    components: [ gpio ]
+    refresh: 1min
+############################################################
+
 number:
   # Slider to set Min Temperature to start fan
   - platform: template
