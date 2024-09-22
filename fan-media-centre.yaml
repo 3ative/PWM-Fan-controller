@@ -29,13 +29,14 @@ logger:
     fan: none
 
 ### Add this to fix the Breaking Change one_wire: change ###
-external_components:
-  - source:
-      type: git
-      url: https://github.com/ssieb/esphome
-      ref: onewire
-    components: [ gpio ]
-    refresh: 1min
+### This has now been "fixed" in ESPHome 2024.6.2 and therefore no longer required ###
+#external_components:
+#  - source:
+#      type: git
+#      url: https://github.com/ssieb/esphome
+#      ref: onewire
+#    components: [ gpio ]
+#    refresh: 1min
 ############################################################
 
 number:
