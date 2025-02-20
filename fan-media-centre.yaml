@@ -5,9 +5,10 @@ substitutions:
 
 esphome:
   name: "fan-media-centre"
-  platform: ESP8266
+
+esp8266:
   board: d1_mini
-  esp8266_restore_from_flash: true
+  restore_from_flash: true
 
 wifi:
   ssid: !secret wifi_ssid
