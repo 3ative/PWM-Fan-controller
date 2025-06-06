@@ -22,11 +22,9 @@ external_components:
  - ### Note: This has now been "fixed" in ESPHome 2024.6.2 and therefore no longer required.
 
 ## Watch the tutorials here:
-[Part 1 - Building the Circuit Board](https://youtu.be/UQ6Gylbk8AI)
-
-[Part 2 - ESPHome Flash and Breakdown](https://youtu.be/72yCK_FiVSg)
-
-[Part 3 - Custom Dashboard Button](https://www.youtube.com/watch?v=oSUa1QDitAU)
+- [Part 1 - Building the Circuit Board](https://youtu.be/UQ6Gylbk8AI)
+- [Part 2 - ESPHome Flash and Breakdown](https://youtu.be/72yCK_FiVSg)
+- [Part 3 - Custom Dashboard Button](https://www.youtube.com/watch?v=oSUa1QDitAU)
 
 ---
 ### 🤝 Found this useful, want to say 'Thanks' and support my efforts. CHEERS🍺
