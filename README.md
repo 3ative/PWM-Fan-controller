@@ -6,7 +6,23 @@ Using a DALLAS temperature sensor and a threshold Slider, the speed of the Fan i
 - With an on-board regulator to power the D1 Mini, this project is ready to control 5,12 or 24 Volt fans without modification
 - (just make sure you power this project with the same voltage your fan uses).
 
-## ESPHome 2024.6.0/1 Update notice:
+### Parts List:
+- **MOSFET: STP16NF06L** - discontinued. [Datasheet](https://4donline.ihs.com/images/VipMasterIC/IC/SGST/SGSTS38803/SGSTS38803-1.pdf?hkey=6D3A4C79FDBF58556ACFDE234799DDF0)
+
+  Logic-level gate (VGS(th) 1-2.5V) - fully switches with 5V, so it drives straight off the D1 Mini's GPIO with no gate driver needed.
+
+  **Equivalent: IRLZ44N** - same TO-220 pinout, logic-level, VDS 55V/ID 47A.
+  
+  
+**Replacement part**- *no board changes*:
+- "IRLZ44NPBF" Buy from [Mouser](https://eu.mouser.com/ProductDetail/Infineon-IR/IRLZ44N?qs=zO0nedAqnNIAphT7g5cSVQ%3D%3D) or [DigiKey](https://azcus.digikey.com/en/products/detail/infineon-technologies/IRLZ44NPBF/811808) - both ship worldwide, single units, no account needed.
+  
+ * Avoid eBay - mislabelled/off-spec stock reported for this part.
+
+*Everything else can be found here:  Amazon UK * : https://amzn.to/3uRw8fi*
+- ###### * As an Amazon Associate I earn from qualifying purchases. Using this link ⇈ provides small monetary support for my channel at no extra cost to you.💖
+
+### ESPHome 2024.6.0/1 Update notice:
 If you are having problems with board resetting or DALLAS temperature after adding the ``one_wire:`` Breaking Change. [ssieb](https://github.com/ssieb) has got a fix for you.
 Please add this External Component to your YAML:
 ```yaml
@@ -21,7 +37,7 @@ external_components:
  - I have also added it to the Yaml Files.
  - ### Note: This has now been "fixed" in ESPHome 2024.6.2 and therefore no longer required.
 
-## Watch the tutorials here:
+### Watch the tutorials here:
 - [Part 1 - Building the Circuit Board](https://youtu.be/UQ6Gylbk8AI)
 - [Part 2 - ESPHome Flash and Breakdown](https://youtu.be/72yCK_FiVSg)
 - [Part 3 - Custom Dashboard Button](https://www.youtube.com/watch?v=oSUa1QDitAU)
