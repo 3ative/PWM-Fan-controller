@@ -12,10 +12,10 @@ Using a DALLAS temperature sensor and a threshold Slider, the speed of the Fan i
   Logic-level gate (VGS(th) 1-2.5V) - fully switches with 5V, so it drives straight off the D1 Mini's GPIO with no gate driver needed.
 
   **Equivalent: IRLZ44N** - same TO-220 pinout, logic-level, VDS 55V/ID 47A.
-  
-  
+
+
 **Replacement part**- *no board changes*:
-- "IRLZ44NPBF" Buy from [Mouser](https://eu.mouser.com/ProductDetail/Infineon-IR/IRLZ44N?qs=zO0nedAqnNIAphT7g5cSVQ%3D%3D) or [DigiKey](https://azcus.digikey.com/en/products/detail/infineon-technologies/IRLZ44NPBF/811808) - both ship worldwide, single units, no account needed.
+- "IRLZ44NPBF" Buy from [Mouser](https://www.mouser.com/ProductDetail/Infineon-Technologies/IRLZ44NPBF?qs=9%2BKlkBgLFf15OZZk%2BD0ibg%3D%3D) or [DigiKey](https://www.digikey.com/en/products/detail/infineon-technologies/IRLZ44NPBF/IRLZ44NPBF-ND/811808) - both ship worldwide, single units, no account needed.
   
  * Avoid eBay - mislabelled/off-spec stock reported for this part.
 
